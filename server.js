@@ -7,13 +7,13 @@ app.use(express.static(path.resolve(__dirname, 'client')));
 
 app.get('/:date_string', function (req, res) {
     
-    var time = moment(req.params.date_string, 'MMMM DD, YYYY', true);
+    var date = moment(req.params.date_string, 'MMMM DD, YYYY', true);
   
-    if (!time.isValid()) {
-        time = moment.unix(req.params.timestamp);
+    if (!date.isValid()) {
+        date = moment.unix(req.params.timestamp);
     }
   
-    if (!time.isValid()) {
+    if (!date.isValid()) {
         res.json({
             'unix': null,
             'humanReadable': null
@@ -21,8 +21,8 @@ app.get('/:date_string', function (req, res) {
     }
   
     res.json({
-        'unix': time.format('X'),
-        'humanReadable': time.format('MMMM DD, YYYY')
+        'unix': date.format('X'),
+        'humanReadable': date.format('MMMM DD, YYYY')
     });
 
 })
